@@ -15,7 +15,9 @@ private static final String GEMINI_URL = "https://generativelanguage.googleapis.
     public static String sendPrompt(String userPrompt) {
         RestTemplate restTemplate = new RestTemplate();
 
-        String apiKey = TelegramBotFitnessBuddyApplication.dotenv.get("GEMINI_API_KEY");
+        //String apiKey = TelegramBotFitnessBuddyApplication.dotenv.get("GEMINI_API_KEY");
+        String apiKey = System.getenv("GEMINI_API_KEY");
+
 
         Map<String, Object> payload = Map.of(
                 "contents", new Object[]{

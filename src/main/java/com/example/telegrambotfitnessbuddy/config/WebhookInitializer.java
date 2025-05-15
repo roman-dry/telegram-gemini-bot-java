@@ -8,11 +8,16 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class WebhookInitializer {
 
-    private static final String WEBHOOK_URL = TelegramBotFitnessBuddyApplication.dotenv.get("HOST_URL") + "/webhook"; // 🔁 Заміни на свій URL
+    //private static final String WEBHOOK_URL = TelegramBotFitnessBuddyApplication.dotenv.get("HOST_URL") + "/webhook"; // 🔁 Заміни на свій URL
+    private static final String WEBHOOK_URL = System.getenv("HOST_URL") + "/webhook"; // 🔁 Заміни на свій URL
+
+
 
     @PostConstruct
     public void registerWebhook() {
-        String botToken = TelegramBotFitnessBuddyApplication.dotenv.get("TELEGRAM_TOKEN");
+        //String botToken = TelegramBotFitnessBuddyApplication.dotenv.get("TELEGRAM_TOKEN");
+        String botToken = System.getenv("TELEGRAM_TOKEN");
+
         String telegramUrl = "https://api.telegram.org/bot" + botToken + "/setWebhook?url=" + WEBHOOK_URL;
 
         RestTemplate restTemplate = new RestTemplate();

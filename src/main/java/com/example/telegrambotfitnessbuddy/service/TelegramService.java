@@ -12,7 +12,9 @@ public class TelegramService {
     private static final String TELEGRAM_API_URL = "https://api.telegram.org/bot";
 
     public void sendMessage(String chatId, String text) {
-        String token = TelegramBotFitnessBuddyApplication.dotenv.get("TELEGRAM_TOKEN");
+        //String token = TelegramBotFitnessBuddyApplication.dotenv.get("TELEGRAM_TOKEN");
+        String token = System.getenv("TELEGRAM_TOKEN");
+
         String url = TELEGRAM_API_URL + token + "/sendMessage";
 
         Map<String, String> payload = Map.of(
