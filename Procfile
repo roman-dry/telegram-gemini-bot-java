@@ -1,2 +1,2 @@
-web: java -jar target/telegrambotfitnessbuddy-1.0.0.jar
+web: java -jar target/telegram-bot-fitness-buddy-0.0.1-SNAPSHOT.jar
 
