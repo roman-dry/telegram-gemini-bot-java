@@ -35,7 +35,6 @@ public class WebhookController {
 
     /*@PostMapping
     public ResponseEntity<String> onUpdateReceived(@RequestBody Update update) {
-        System.out.println("Received update: " + update);
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             Message message = update.getMessage();
@@ -56,16 +55,42 @@ public class WebhookController {
 
             telegramService.sendMessage(chatId, responseText);
             System.out.println("Sent response: " + responseText);
+        }*/
+
+        @PostMapping
+        public ResponseEntity<String> onUpdateReceived(@RequestBody Update update) {
+            System.out.println("📥 Incoming update: " + update);
+
+            try {
+                if (update.hasMessage() && update.getMessage().hasText()) {
+                    Message message = update.getMessage();
+                    String input = message.getText();
+                    String chatId = message.getChatId().toString();
+
+                    String responseText;
+                    if ("/start".equals(input)) {
+                        responseText = "Hi there! I’m your friendly fitness buddy. " +
+                                "Ready to start your journey with some simple and fun workouts? " +
+                                "Just ask me anything — I’m here to help!";
+                    } else {
+                        String prompt = INSTRUCTIONS + "\n\nUser query: " + input;
+                        responseText = GeminiService.sendPrompt(prompt);  // Перевір, чи цей метод статичний!
+                    }
+
+                    telegramService.sendMessage(chatId, responseText);
+                }
+            } catch (Exception e) {
+                e.printStackTrace(); // <-- обов'язково
+            }
+
+            return ResponseEntity.ok("OK");
         }
 
 
-        return ResponseEntity.ok("OK");
-    }*/
 
-    @PostMapping
-    public ResponseEntity<String> onUpdateReceived(@RequestBody Update update) {
-        System.out.println("✅ Update received!");
-        return ResponseEntity.ok("OK");
+        /*return ResponseEntity.ok("OK");
     }
+*/
+
 }
 

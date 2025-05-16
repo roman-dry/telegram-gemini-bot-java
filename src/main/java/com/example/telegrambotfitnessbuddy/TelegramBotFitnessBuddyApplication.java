@@ -14,11 +14,6 @@ public class TelegramBotFitnessBuddyApplication {
 
     public static void main(String[] args) {
 
-        Map<String, String> env = System.getenv();
-        System.out.println("🌍 ВСІ ЗМІННІ СЕРЕДОВИЩА:");
-        env.forEach((key, value) -> System.out.println(key + " = " + value));
-
-
         SpringApplication.run(TelegramBotFitnessBuddyApplication.class, args);
     }
 
