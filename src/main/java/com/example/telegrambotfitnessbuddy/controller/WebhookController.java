@@ -28,6 +28,13 @@ public class WebhookController {
         this.telegramService = telegramService;
     }
 
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping() {
+        System.out.println("✅ Ping received");
+        return ResponseEntity.ok("pong");
+    }
+
+
     @GetMapping
     public ResponseEntity<String> checkWebhook() {
         return ResponseEntity.ok("Webhook endpoint is up");
