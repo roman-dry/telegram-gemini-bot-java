@@ -33,7 +33,7 @@ public class WebhookController {
         return ResponseEntity.ok("Webhook endpoint is up");
     }
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<String> onUpdateReceived(@RequestBody Update update) {
         System.out.println("Received update: " + update);
 
@@ -58,6 +58,12 @@ public class WebhookController {
             System.out.println("Sent response: " + responseText);
         }
 
+        return ResponseEntity.ok("OK");
+    }*/
+
+    @PostMapping
+    public ResponseEntity<String> onUpdateReceived(@RequestBody Update update) {
+        System.out.println("✅ Update received!");
         return ResponseEntity.ok("OK");
     }
 }
