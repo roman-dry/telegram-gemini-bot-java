@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 @RequestMapping("/webhook")
 public class WebhookController {
 
-        private final TelegramService telegramService;
+    private final TelegramService telegramService;
 
     private static final String INSTRUCTIONS = """
         You are a telegram bot, a friendly fitness coach for complete beginners.
@@ -28,12 +28,21 @@ public class WebhookController {
         this.telegramService = telegramService;
     }
 
+    @GetMapping
+    public ResponseEntity<String> checkWebhook() {
+        return ResponseEntity.ok("Webhook endpoint is up");
+    }
+
     @PostMapping
     public ResponseEntity<String> onUpdateReceived(@RequestBody Update update) {
+        System.out.println("Received update: " + update);
+
         if (update.hasMessage() && update.getMessage().hasText()) {
             Message message = update.getMessage();
             String input = message.getText();
             String chatId = message.getChatId().toString();
+
+            System.out.println("Received message: " + input + " from chatId: " + chatId);
 
             String responseText;
             if ("/start".equals(input)) {
@@ -42,14 +51,14 @@ public class WebhookController {
                         "Just ask me anything — I’m here to help!";
             } else {
                 String prompt = INSTRUCTIONS + "\n\nUser query: " + input;
-                responseText = GeminiService.sendPrompt(prompt);
-                //responseText = "Test response — бот працює.";
-
+                responseText = GeminiService.sendPrompt(prompt);  // Перевір, чи цей метод статичний!
             }
 
             telegramService.sendMessage(chatId, responseText);
+            System.out.println("Sent response: " + responseText);
         }
 
         return ResponseEntity.ok("OK");
     }
 }
+
