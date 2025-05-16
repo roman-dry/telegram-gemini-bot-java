@@ -4,6 +4,8 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Map;
+
 @SpringBootApplication
 public class TelegramBotFitnessBuddyApplication {
 
@@ -12,12 +14,10 @@ public class TelegramBotFitnessBuddyApplication {
 
     public static void main(String[] args) {
 
-        // Друкуємо змінні ДО запуску Spring
-        String token = System.getenv("TELEGRAM_TOKEN");
-        String hostUrl = System.getenv("HOST_URL");
+        Map<String, String> env = System.getenv();
+        System.out.println("🌍 ВСІ ЗМІННІ СЕРЕДОВИЩА:");
+        env.forEach((key, value) -> System.out.println(key + " = " + value));
 
-        System.out.println("🔍 TELEGRAM_TOKEN: " + token);
-        System.out.println("🔍 HOST_URL: " + hostUrl);
 
         SpringApplication.run(TelegramBotFitnessBuddyApplication.class, args);
     }
